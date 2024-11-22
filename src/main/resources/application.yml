@@ -1,0 +1,4 @@
+baseUrl: ${base_url}
+spring:
+  application:
+    name: FinancialHouseProject
