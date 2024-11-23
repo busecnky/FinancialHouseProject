@@ -1,9 +1,7 @@
 package com.financialhouseproject.dto.response;
 
-import lombok.Data;
 
-@Data
-public class AuthResponseDto {
-    String token;
-    String status;
+public record AuthResponseDto(String token,
+                              String status) {
+
 }
