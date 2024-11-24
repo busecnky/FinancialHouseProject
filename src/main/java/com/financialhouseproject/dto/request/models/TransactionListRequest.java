@@ -1,28 +1,26 @@
-package com.financialhouseproject.dto.request;
+package com.financialhouseproject.dto.request.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.financialhouseproject.dto.request.models.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TransactionListRequestDto{
-    @JsonFormat(pattern = "yyyy-MM-dd")
+public class TransactionListRequest {
     private LocalDate fromDate;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate toDate;
-    private Status status;
-    private Operation operation;
+    private String status;
+    private String operation;
     private Integer merchantId;
     private Integer acquirerId;
-    private PaymentMethod paymentMethod;
-    private ErrorCode errorCode;
-    private FilterField filterField;
+    private String paymentMethod;
+    private String errorCode;
+    private String filterField;
     private String filterValue;
     private Integer page;
 }

@@ -7,6 +7,7 @@ import com.financialhouseproject.dto.response.TransactionListResponseDto;
 import com.financialhouseproject.dto.response.TransactionResponseDto;
 import com.financialhouseproject.dto.response.TransactionsReportResponseDto;
 import com.financialhouseproject.service.TransactionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class TransactionController {
     @PostMapping("/transactions/report")
     public ResponseEntity<TransactionsReportResponseDto> fetchTransactionsReport(
             @RequestHeader("Authorization") String authToken,
-            @RequestBody TransactionsReportRequestDto transactionsReportRequestDto){
+            @RequestBody @Valid TransactionsReportRequestDto transactionsReportRequestDto){
         return ResponseEntity.ok(transactionService.fetchTransactionsReport(authToken,
                 transactionsReportRequestDto));
 
@@ -37,7 +38,7 @@ public class TransactionController {
     @PostMapping("/transaction")
     public ResponseEntity<TransactionResponseDto> fetchTransaction(
             @RequestHeader("Authorization") String authToken,
-            @RequestBody TransactionRequestDto transactionRequestDto){
+            @RequestBody @Valid TransactionRequestDto transactionRequestDto){
         return ResponseEntity.ok(transactionService.fetchTransaction(authToken, transactionRequestDto));
 
     }

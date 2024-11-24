@@ -1,13 +1,8 @@
 package com.financialhouseproject.service;
 
 import com.financialhouseproject.dto.request.ClientInfoRequestDto;
-import com.financialhouseproject.dto.request.TransactionListRequestDto;
-import com.financialhouseproject.dto.request.TransactionRequestDto;
-import com.financialhouseproject.dto.request.TransactionsReportRequestDto;
 import com.financialhouseproject.dto.response.ClientInfoResponseDto;
-import com.financialhouseproject.dto.response.TransactionListResponseDto;
-import com.financialhouseproject.dto.response.TransactionResponseDto;
-import com.financialhouseproject.dto.response.TransactionsReportResponseDto;
+import com.financialhouseproject.helpers.HttpRequestHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

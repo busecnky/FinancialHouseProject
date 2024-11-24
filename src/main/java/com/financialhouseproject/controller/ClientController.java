@@ -5,10 +5,7 @@ import com.financialhouseproject.dto.response.ClientInfoResponseDto;
 import com.financialhouseproject.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping()
 @RestController
@@ -21,7 +18,7 @@ public class ClientController {
     @PostMapping("/client")
     public ResponseEntity<ClientInfoResponseDto> fetchClientInfo(
             @RequestHeader("Authorization") String authToken,
-            ClientInfoRequestDto clientInfoRequestDto){
+            @RequestBody ClientInfoRequestDto clientInfoRequestDto){
         return ResponseEntity.ok(clientService.fetchClient(authToken,
                 clientInfoRequestDto));
     }

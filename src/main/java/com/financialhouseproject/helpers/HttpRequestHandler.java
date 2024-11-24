@@ -1,4 +1,4 @@
-package com.financialhouseproject.service;
+package com.financialhouseproject.helpers;
 
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,9 @@ public class HttpRequestHandler {
     }
 
 
-    public  <T, R> R sendPostRequest(String url, String authToken, T requestDto, Class<R> responseType) {
+    public <T, R> R sendPostRequest(String url, String authToken, T requestDto, Class<R> responseType) {
+        validateToken(url, authToken);
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", authToken);
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -29,10 +31,21 @@ public class HttpRequestHandler {
             return Optional.ofNullable(response.getBody())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Empty response body"));
         } catch (HttpClientErrorException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred during the request", e);
+        }
+    }
+
+    private void validateToken(String url, String authToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authToken);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        try {
+            restTemplate.exchange(url, HttpMethod.HEAD, requestEntity, Void.class);
+        } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid or expired token");
             }
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred during the request", e);
         }
     }
 

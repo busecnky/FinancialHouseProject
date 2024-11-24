@@ -3,15 +3,18 @@ package com.financialhouseproject.service;
 import com.financialhouseproject.dto.request.TransactionListRequestDto;
 import com.financialhouseproject.dto.request.TransactionRequestDto;
 import com.financialhouseproject.dto.request.TransactionsReportRequestDto;
+import com.financialhouseproject.dto.request.models.TransactionListRequest;
 import com.financialhouseproject.dto.response.TransactionListResponseDto;
 import com.financialhouseproject.dto.response.TransactionResponseDto;
 import com.financialhouseproject.dto.response.TransactionsReportResponseDto;
+import com.financialhouseproject.helpers.HttpRequestHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TransactionService {
     private final HttpRequestHandler httpRequestHandler;
+    private final TransactionMapper transactionMapper;
     @Value("${baseUrl}/transactions/report")
     private String reportUrl;
     @Value("${baseUrl}/transaction/list")
@@ -19,8 +22,9 @@ public class TransactionService {
     @Value("${baseUrl}/transaction")
     private String transactionUrl;
 
-    public TransactionService(HttpRequestHandler httpRequestHandler) {
+    public TransactionService(HttpRequestHandler httpRequestHandler, TransactionMapper transactionMapper) {
         this.httpRequestHandler = httpRequestHandler;
+        this.transactionMapper = transactionMapper;
     }
 
     public TransactionsReportResponseDto fetchTransactionsReport(
@@ -34,7 +38,13 @@ public class TransactionService {
     public TransactionListResponseDto fetchTransactionList(
             String authToken,
             TransactionListRequestDto transactionListRequestDto) {
-        return httpRequestHandler.sendPostRequest(listUrl, authToken, transactionListRequestDto, TransactionListResponseDto.class);
+        System.out.println(transactionListRequestDto);
+        TransactionListRequest transactionListRequest = transactionMapper.
+                mapRequest(transactionListRequestDto);
+        System.out.println("**************"+transactionMapper.mapRequest(transactionListRequestDto));
+        return httpRequestHandler.sendPostRequest(listUrl, authToken,
+                transactionListRequest,
+                TransactionListResponseDto.class);
 
     }
 
