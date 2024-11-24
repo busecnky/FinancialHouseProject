@@ -32,6 +32,8 @@ public class AuthService {
             return response.getBody();
         } catch (HttpClientErrorException e) {
             return e.getResponseBodyAs(AuthResponseDto.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Unexpected error during authentication", e);
         }
     }
 }
