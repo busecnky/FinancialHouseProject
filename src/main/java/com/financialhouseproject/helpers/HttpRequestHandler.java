@@ -29,9 +29,11 @@ public class HttpRequestHandler {
         try {
             ResponseEntity<R> response = restTemplate.postForEntity(url, requestEntity, responseType);
             return Optional.ofNullable(response.getBody())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Empty response body"));
+                    .orElseThrow(
+                            () -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Empty response body"));
         } catch (HttpClientErrorException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred during the request", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An error occurred during the request", e);
         }
     }
 

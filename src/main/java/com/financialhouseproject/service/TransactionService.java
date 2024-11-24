@@ -30,7 +30,8 @@ public class TransactionService {
     public TransactionsReportResponseDto fetchTransactionsReport(
             String authToken,
             TransactionsReportRequestDto transactionsReportRequestDto) {
-        return httpRequestHandler.sendPostRequest(reportUrl, authToken, transactionsReportRequestDto, TransactionsReportResponseDto.class);
+        return httpRequestHandler.sendPostRequest(reportUrl, authToken,
+                transactionsReportRequestDto, TransactionsReportResponseDto.class);
 
     }
 
@@ -38,10 +39,8 @@ public class TransactionService {
     public TransactionListResponseDto fetchTransactionList(
             String authToken,
             TransactionListRequestDto transactionListRequestDto) {
-        System.out.println(transactionListRequestDto);
         TransactionListRequest transactionListRequest = transactionMapper.
                 mapRequest(transactionListRequestDto);
-        System.out.println("**************"+transactionMapper.mapRequest(transactionListRequestDto));
         return httpRequestHandler.sendPostRequest(listUrl, authToken,
                 transactionListRequest,
                 TransactionListResponseDto.class);
@@ -49,6 +48,7 @@ public class TransactionService {
     }
 
     public TransactionResponseDto fetchTransaction(String authToken, TransactionRequestDto transactionRequestDto) {
-        return httpRequestHandler.sendPostRequest(transactionUrl, authToken, transactionRequestDto, TransactionResponseDto.class);
+        return httpRequestHandler.sendPostRequest(transactionUrl, authToken,
+                transactionRequestDto, TransactionResponseDto.class);
     }
 }

@@ -27,7 +27,8 @@ public class AuthService {
         HttpEntity<AuthRequestDto> requestEntity = new HttpEntity<>(authRequestdto, headers);
 
         try {
-            ResponseEntity<AuthResponseDto> response = restTemplate.postForEntity(loginURL, requestEntity, AuthResponseDto.class);
+            ResponseEntity<AuthResponseDto> response = restTemplate.postForEntity(loginURL,
+                    requestEntity, AuthResponseDto.class);
             return response.getBody();
         } catch (HttpClientErrorException e) {
             return e.getResponseBodyAs(AuthResponseDto.class);

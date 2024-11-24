@@ -20,7 +20,8 @@ public class ClientService {
     public ClientInfoResponseDto fetchClient(
             String authToken,
             ClientInfoRequestDto clientInfoRequestDto) {
-        return httpRequestHandler.sendPostRequest(clientUrl, authToken, clientInfoRequestDto, ClientInfoResponseDto.class);
+        return httpRequestHandler.sendPostRequest(clientUrl, authToken,
+                clientInfoRequestDto, ClientInfoResponseDto.class);
 
     }
 
