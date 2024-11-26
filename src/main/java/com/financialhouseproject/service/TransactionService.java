@@ -39,10 +39,8 @@ public class TransactionService {
     public TransactionListResponseDto fetchTransactionList(
             String authToken,
             TransactionListRequestDto transactionListRequestDto) {
-        System.out.println(transactionListRequestDto);
         TransactionListRequest transactionListRequest = transactionMapper.
                 mapRequest(transactionListRequestDto);
-        System.out.println(transactionListRequest);
         return httpRequestHandler.sendPostRequest(listUrl, authToken,
                 transactionListRequest,
                 TransactionListResponseDto.class);
